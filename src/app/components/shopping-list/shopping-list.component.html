@@ -1,7 +1,7 @@
-<div class="fos" *ngFor="let product of products">
-  <div class="product-row">
-    <mat-checkbox></mat-checkbox>
+<form class="shoppingList" [formGroup]="shoppingList">
+  <div class="shopping-list-item-container" *ngFor="let product of products">
+    <mat-checkbox formControlName="{{ product.name }}"></mat-checkbox>
     <p class="short">{{product.quantity}} {{product.measurementUnit}} {{product.name}}</p>
   </div>
-</div>
+</form>
 <button mat-raised-button color="primary" (click)="onSubmit()">Vásárlás lezárása</button>

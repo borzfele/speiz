@@ -1,2 +1,2 @@
 <app-add-product-form (addItem)="onAddItem($event)"></app-add-product-form>
-<app-shopping-list [products]="products"></app-shopping-list>
+<app-shopping-list [shoppingListForm]="shoppingListForm" [products]="products" (finishShopping)="onFinishShopping($event)"></app-shopping-list>

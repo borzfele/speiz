@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 export interface Product {
   name: string;
@@ -12,15 +13,25 @@ export interface Product {
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.scss']
 })
-export class ShoppingListComponent {
-  columnsToDisplay = ['quantity', 'measurementUnit', 'name'];
+export class ShoppingListComponent implements OnInit {
 
   @Input()
   products: Product[] = [];
 
+  @Output()
+  finishShopping: EventEmitter<any> = new EventEmitter();
+
+  shoppingList: FormGroup = new FormGroup({});
+
   constructor() {}
 
+  ngOnInit(): void {
+    this.products.forEach((product) => {
+      this.shoppingList.addControl(product.name, new FormControl(false));
+    });
+  }
+
   onSubmit(): void {
-    console.log("picsafüst");
+    this.finishShopping.emit(this.shoppingList.value);
   }
 }

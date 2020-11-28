@@ -1,5 +1,6 @@
 import { Product } from './../../components/shopping-list/shopping-list.component';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-list-page',
@@ -26,6 +27,16 @@ export class ShoppingListPageComponent implements OnInit {
 
   onAddItem(product: Product): void {
     this.products.push(product);
+  }
+
+  onFinishShopping(shoppingList: any): void {
+    for (let i = 0; i < this.products.length; i++) {
+      Object.keys(shoppingList).forEach((key) => {
+        if (this.products[i].name === key && shoppingList[key]) {
+          this.products.splice(i, 1);
+        }
+      });
+    }
   }
 
 }

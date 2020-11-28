@@ -30,6 +30,6 @@ export class AddProductFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.addListItemForm.reset();
+      this.addListItemForm.reset();
   }
 }
