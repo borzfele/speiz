@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from '../shopping-list/shopping-list.component';
 
 @Component({
@@ -9,9 +9,9 @@ import { Product } from '../shopping-list/shopping-list.component';
 })
 export class AddProductFormComponent implements OnInit {
   addListItemForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    quantity: new FormControl(''),
-    measurementUnit: new FormControl('')
+    name: new FormControl('', Validators.required),
+    quantity: new FormControl('', Validators.required),
+    measurementUnit: new FormControl('', Validators.required)
   });
 
   @Output()
@@ -23,8 +23,10 @@ export class AddProductFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.addItem.emit(this.addListItemForm.value);
-    this.addListItemForm.reset();
+    if (this.addListItemForm.valid) {
+      this.addItem.emit(this.addListItemForm.value);
+      this.addListItemForm.reset();
+    }
   }
 
   onCancel(): void {
