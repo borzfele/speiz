@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Product } from '../shopping-list/shopping-list.component';
 
@@ -8,13 +8,14 @@ import { Product } from '../shopping-list/shopping-list.component';
   styleUrls: ['./add-product-form.component.scss']
 })
 export class AddProductFormComponent implements OnInit {
-  shoppingList: Product[] = [];
-
   addListItemForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     quantity: new FormControl(''),
     measurementUnit: new FormControl('')
   });
+
+  @Output()
+  addItem: EventEmitter<Product> = new EventEmitter();
 
   constructor() { }
 
@@ -22,6 +23,11 @@ export class AddProductFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.shoppingList.push(this.addListItemForm.value);
+    this.addItem.emit(this.addListItemForm.value);
+    this.addListItemForm.reset();
+  }
+
+  onCancel(): void {
+    this.addListItemForm.reset();
   }
 }
