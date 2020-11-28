@@ -1,0 +1,15 @@
+<form [formGroup]="addListItemForm">
+  <mat-form-field>
+    <input type="text" matInput formControlName="name" placeholder="Termék neve">
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput formControlName="quantity" placeholder="Mennyiség">
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput formControlName="measurementUnit" placeholder="Mértékegység">
+  </mat-form-field>
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="onSubmit()">Mentés</button>
+    <button mat-button color="warn">Mégsem</button>
+  </div>
+</form>

@@ -1,1 +1,6 @@
-<p>shopping-list works!</p>
+<div class="fos" *ngFor="let product of products">
+  <div class="product-row">
+    <mat-checkbox></mat-checkbox>
+    <p class="short">{{product.quantity}} {{product.measurementUnit}} {{product.name}}</p>
+  </div>
+</div>

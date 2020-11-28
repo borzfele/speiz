@@ -1,0 +1,42 @@
+:host {
+  width: 250px;
+  height: 100%;
+  background-color: white;
+  border-radius: 5px;
+  margin-left: 30px;
+  box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.4);
+  overflow: overlay;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fos {
+  border-bottom: 1px solid #6497b1;
+}
+
+.product-row {
+  margin: 15px 0 15px 0;
+  display: flex;
+}
+
+.short {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5px;
+}
+
+mat-checkbox {
+  color: #6497b1;
+  margin-right: 5px;
+}
+
+/*
+hr {
+  margin: unset;
+  border-color: #6497b1;
+}
+*/
+p {
+  margin: unset;
+}
