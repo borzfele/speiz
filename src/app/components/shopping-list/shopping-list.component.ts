@@ -1,6 +1,6 @@
-import { Output } from '@angular/core';
+import { OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 
 export interface Product {
   name: string;
@@ -13,7 +13,7 @@ export interface Product {
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.scss']
 })
-export class ShoppingListComponent implements OnInit {
+export class ShoppingListComponent implements OnInit, OnChanges {
 
   @Input()
   products: Product[] = [];
@@ -26,6 +26,12 @@ export class ShoppingListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.products.forEach((product) => {
+      this.shoppingList.addControl(product.name, new FormControl(false));
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.products.forEach((product) => {
       this.shoppingList.addControl(product.name, new FormControl(false));
     });

@@ -27,6 +27,7 @@ export class ShoppingListPageComponent implements OnInit {
 
   onAddItem(product: Product): void {
     this.products.push(product);
+    this.products = this.products.slice();
   }
 
   onFinishShopping(shoppingList: any): void {
