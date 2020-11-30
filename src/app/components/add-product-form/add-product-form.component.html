@@ -1,4 +1,4 @@
-<form [formGroup]="addListItemForm">
+<form [formGroup]="addListItemForm" #formDirective="ngForm">
   <mat-form-field>
     <input type="text" matInput formControlName="quantity" placeholder="Mennyiség">
   </mat-form-field>

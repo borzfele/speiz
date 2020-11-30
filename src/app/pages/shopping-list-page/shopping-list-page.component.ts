@@ -1,6 +1,5 @@
 import { Product } from './../../components/shopping-list/shopping-list.component';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-list-page',
@@ -39,5 +38,4 @@ export class ShoppingListPageComponent implements OnInit {
       });
     }
   }
-
 }

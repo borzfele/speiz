@@ -39,5 +39,6 @@ export class ShoppingListComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     this.finishShopping.emit(this.shoppingList.value);
+    this.shoppingList.reset();
   }
 }
