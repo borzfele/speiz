@@ -1,12 +1,7 @@
 import { OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
-
-export interface Product {
-  name: string;
-  quantity: string;
-  measurementUnit: string;
-}
+import { FormGroup, FormControl } from '@angular/forms';
+import { Product } from 'src/app/models/shopping-list.models';
 
 @Component({
   selector: 'app-shopping-list',
@@ -16,29 +11,38 @@ export interface Product {
 export class ShoppingListComponent implements OnInit, OnChanges {
 
   @Input()
-  products: Product[] = [];
+  products: Product[] | null;
 
   @Output()
   finishShopping: EventEmitter<any> = new EventEmitter();
 
   shoppingList: FormGroup = new FormGroup({});
 
-  constructor() {}
+  constructor() {
+    this.products = [];
+  }
 
   ngOnInit(): void {
-    this.products.forEach((product) => {
-      this.shoppingList.addControl(product.name, new FormControl(false));
-    });
+    this.renderForm();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.products.forEach((product) => {
-      this.shoppingList.addControl(product.name, new FormControl(false));
-    });
+    this.renderForm();
   }
 
   onSubmit(): void {
-    this.finishShopping.emit(this.shoppingList.value);
+    console.log(this.shoppingList.value);
+    const purchasedProducts =
+      Object.keys(this.shoppingList.value).filter(key => this.shoppingList.value[key] === true);
+    this.finishShopping.emit(purchasedProducts);
     this.shoppingList.reset();
+  }
+
+  renderForm(): void {
+    if (this.products) {
+      this.products.forEach((product) => {
+        this.shoppingList.addControl(product.id, new FormControl(false));
+      });
+    }
   }
 }

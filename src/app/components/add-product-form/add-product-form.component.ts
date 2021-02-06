@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Product } from '../shopping-list/shopping-list.component';
+import { Product } from 'src/app/models/shopping-list.models';
 
 @Component({
   selector: 'app-add-product-form',
@@ -15,9 +15,11 @@ export class AddProductFormComponent implements OnInit {
   });
 
   @Output()
-  addItem: EventEmitter<Product> = new EventEmitter();
+  addItem: EventEmitter<Product>;
 
-  constructor() { }
+  constructor() {
+    this.addItem = new EventEmitter();
+  }
 
   ngOnInit(): void {
   }
