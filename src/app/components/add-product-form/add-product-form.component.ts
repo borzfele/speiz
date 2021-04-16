@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/shopping-list.models';
 
@@ -14,6 +14,9 @@ export class AddProductFormComponent implements OnInit {
     measurementUnit: new FormControl('', Validators.required)
   });
 
+  @ViewChild('quantity')
+  quantity!: any;
+
   @Output()
   addItem: EventEmitter<Product>;
 
@@ -28,6 +31,7 @@ export class AddProductFormComponent implements OnInit {
     if (this.addListItemForm.valid) {
       this.addItem.emit(this.addListItemForm.value);
       this.addListItemForm.reset();
+      this.quantity.nativeElement.focus();
     }
   }
 

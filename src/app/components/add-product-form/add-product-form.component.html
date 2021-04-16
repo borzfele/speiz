@@ -1,6 +1,6 @@
-<form [formGroup]="addListItemForm" #formDirective="ngForm">
+<form [formGroup]="addListItemForm" #formDirective="ngForm" (keyup.enter)="onSubmit()">
   <mat-form-field>
-    <input type="text" matInput formControlName="quantity" placeholder="Mennyiség">
+    <input type="text" matInput formControlName="quantity" placeholder="Mennyiség" #quantity>
   </mat-form-field>
   <mat-form-field>
     <input type="text" matInput formControlName="measurementUnit" placeholder="Mértékegység">
@@ -8,8 +8,4 @@
   <mat-form-field>
     <input type="text" matInput formControlName="name" placeholder="Termék neve">
   </mat-form-field>
-  <div class="button-container">
-    <button mat-raised-button color="primary" (click)="onSubmit()">Mentés</button>
-    <button mat-button color="warn" (click)="onCancel()">Mégsem</button>
-  </div>
 </form>

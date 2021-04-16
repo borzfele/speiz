@@ -1,5 +1,10 @@
-import { Product } from './../../components/shopping-list/shopping-list.component';
+import { mergeMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/models/shopping-list.models';
+import { Select, Store, ofActionSuccessful } from '@ngxs/store';
+import { ShoppingList } from 'src/app/store/shopping-list.actions';
+import { ShoppingListState } from 'src/app/store/shopping-list.state';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list-page',
@@ -8,33 +13,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingListPageComponent implements OnInit {
 
-  products = [
-    {quantity: '1', measurementUnit: 'kg', name: 'kenyér'},
-    {quantity: '3', measurementUnit: 'kg', name: 'krumpli'},
-    {quantity: '6', measurementUnit: 'db', name: 'hagyma'},
-    {quantity: '1', measurementUnit: 'db', name: 'margarin'},
-    {quantity: '1', measurementUnit: 'l', name: 'tej'},
-    {quantity: '5', measurementUnit: 'kg', name: 'narancs'},
-    {quantity: '40', measurementUnit: 'dkg', name: 'felvágott'},
-    {quantity: '1', measurementUnit: 'kanál', name: 'kutyafos'}
-  ];
+  @Select(ShoppingListState.products)
+  products$?: Observable<Product[]>;
 
-  constructor() { }
+  constructor(private store: Store) {
+  }
 
   ngOnInit(): void {
+    this.store.dispatch(new ShoppingList.Get());
   }
 
   onAddItem(product: Product): void {
-    this.products.push(product);
-    this.products = this.products.slice();
+    this.store.dispatch(new ShoppingList.AddProduct(product)).subscribe(() => {
+      this.store.dispatch(new ShoppingList.Get());
+    });
   }
 
-  onFinishShopping(shoppingList: any): void {
-    for (let i = 0; i < this.products.length; i++) {
-      Object.keys(shoppingList).forEach((key) => {
-        if (this.products[i].name === key && shoppingList[key]) {
-          this.products.splice(i, 1);
-        }
+  onFinishShopping(shoppingList: Product[]): void {
+    if (shoppingList.length > 0) {
+      this.store.dispatch(new ShoppingList.FinishShopping(shoppingList)).subscribe(() => {
+        this.store.dispatch(new ShoppingList.Get());
       });
     }
   }

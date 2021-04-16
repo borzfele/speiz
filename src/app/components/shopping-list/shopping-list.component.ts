@@ -31,7 +31,6 @@ export class ShoppingListComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void {
-    console.log(this.shoppingList.value);
     const purchasedProducts =
       Object.keys(this.shoppingList.value).filter(key => this.shoppingList.value[key] === true);
     this.finishShopping.emit(purchasedProducts);
