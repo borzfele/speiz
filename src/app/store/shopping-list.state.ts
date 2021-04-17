@@ -1,3 +1,4 @@
+import { ShoppingList } from 'src/app/store/shopping-list.actions';
 import { ShoppingListService } from './../services/shopping-list-service/shopping-list.service';
 import { Injectable } from '@angular/core';
 import { Action, ofActionSuccessful, Selector, State, StateContext, Store } from '@ngxs/store';
@@ -40,10 +41,18 @@ export class ShoppingListState {
   }
 
   @Action(ShoppingList.FinishShopping)
-  removeShoppingListItem(
+  removeShoppingListItems(
     ctx: StateContext<ShoppingListStateModel>,
     action: ShoppingList.FinishShopping
   ): Observable<any> {
     return this.shoppingListService.finishShopping(action.productList);
+  }
+
+  @Action(ShoppingList.RemoveProduct)
+  removeProduct(
+    ctx: StateContext<ShoppingListStateModel>,
+    action: ShoppingList.RemoveProduct
+  ): Observable<any> {
+    return this.shoppingListService.removeProduct(action.productId);
   }
 }

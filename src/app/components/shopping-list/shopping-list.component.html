@@ -1,7 +1,12 @@
 <form class="shoppingList" [formGroup]="shoppingList">
-  <div class="shopping-list-item-container" *ngFor="let product of products">
+  <div class="shopping-list-item-container" *ngFor="let product of products" on-mouseover="onMouseOver(product.id)" on-mouseleave="onMouseLeave()">
     <mat-checkbox formControlName="{{ product.id }}"></mat-checkbox>
-    <p class="short">{{product.quantity}} {{product.measurement_unit}} {{product.product}}</p>
+    <div class="shopping-list-item">
+      <p class="shopping-list-item-element">{{product.quantity}}</p>
+      <p class="shopping-list-item-element">{{product.measurement_unit}}</p>
+      <p class="shopping-list-item-element">{{product.product}}</p>
+    </div>
+    <mat-icon *ngIf="showDelete == product.id" (click)="onRemoveProduct(product.id)">close</mat-icon>
   </div>
 </form>
 <button mat-raised-button color="primary" (click)="onSubmit()">Vásárlás lezárása</button>

@@ -46,5 +46,27 @@ p {
 .shopping-list-item-container {
   padding: 15px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid #005b96;
+}
+
+.shopping-list-item {
+  width: 100%;
+  display: flex;
+}
+
+.shopping-list-item-element {
+  margin-right: 4px;
+}
+
+.mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: red;
 }

@@ -10,16 +10,22 @@ import { Product } from 'src/app/models/shopping-list.models';
 })
 export class ShoppingListComponent implements OnInit, OnChanges {
 
+  showDelete: number | null;
+
   @Input()
   products: Product[] | null;
 
   @Output()
   finishShopping: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  removeProduct: EventEmitter<number> = new EventEmitter();
+
   shoppingList: FormGroup = new FormGroup({});
 
   constructor() {
     this.products = [];
+    this.showDelete = null;
   }
 
   ngOnInit(): void {
@@ -43,5 +49,17 @@ export class ShoppingListComponent implements OnInit, OnChanges {
         this.shoppingList.addControl(product.id, new FormControl(false));
       });
     }
+  }
+
+  onMouseOver(productId: number): void {
+    this.showDelete = productId;
+  }
+
+  onMouseLeave(): void {
+    this.showDelete = null;
+  }
+
+  onRemoveProduct(productId: number): void {
+      this.removeProduct.emit(productId);
   }
 }

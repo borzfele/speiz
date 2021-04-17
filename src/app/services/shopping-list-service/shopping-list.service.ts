@@ -19,4 +19,8 @@ export class ShoppingListService {
   finishShopping(products: Product[]): Observable<any> {
     return this.http.post('http://localhost:3000/finish', products);
   }
+
+  removeProduct(productId: number): Observable<any> {
+    return this.http.delete(`http://localhost:3000/product/${productId}`);
+  }
 }

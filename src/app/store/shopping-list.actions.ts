@@ -17,4 +17,8 @@ export namespace ShoppingList {
     constructor(public productList: Product[]) {}
   }
 
+  export class RemoveProduct {
+    static readonly type = '[ShoppingListPage] Remove Product';
+    constructor(public productId: number) {}
+  }
 }
