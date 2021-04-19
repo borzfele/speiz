@@ -37,7 +37,7 @@ export class ShoppingListPageComponent implements OnInit {
     }
   }
 
-  onRemoveProduct(productId: number): void {
+  onRemoveProduct(productId: string): void {
     this.store.dispatch(new ShoppingList.RemoveProduct(productId)).subscribe(() => {
       this.store.dispatch(new ShoppingList.Get());
     });

@@ -1,10 +1,8 @@
-import { ShoppingList } from 'src/app/store/shopping-list.actions';
 import { ShoppingListService } from './../services/shopping-list-service/shopping-list.service';
 import { Injectable } from '@angular/core';
-import { Action, ofActionSuccessful, Selector, State, StateContext, Store } from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Product, ShoppingListStateModel } from '../models/shopping-list.models';
 import { ShoppingList } from './shopping-list.actions';
-import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 @State<ShoppingListStateModel>({

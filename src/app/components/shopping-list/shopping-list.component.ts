@@ -10,7 +10,7 @@ import { Product } from 'src/app/models/shopping-list.models';
 })
 export class ShoppingListComponent implements OnInit, OnChanges {
 
-  showDelete: number | null;
+  showDelete: string | null;
 
   @Input()
   products: Product[] | null;
@@ -19,7 +19,7 @@ export class ShoppingListComponent implements OnInit, OnChanges {
   finishShopping: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  removeProduct: EventEmitter<number> = new EventEmitter();
+  removeProduct: EventEmitter<string> = new EventEmitter();
 
   shoppingList: FormGroup = new FormGroup({});
 
@@ -51,7 +51,7 @@ export class ShoppingListComponent implements OnInit, OnChanges {
     }
   }
 
-  onMouseOver(productId: number): void {
+  onMouseOver(productId: string): void {
     this.showDelete = productId;
   }
 
@@ -59,7 +59,7 @@ export class ShoppingListComponent implements OnInit, OnChanges {
     this.showDelete = null;
   }
 
-  onRemoveProduct(productId: number): void {
+  onRemoveProduct(productId: string): void {
       this.removeProduct.emit(productId);
   }
 }
