@@ -1,3 +1,4 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { ShoppingListService } from './services/shopping-list-service/shopping-list.service';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,6 +29,7 @@ import { AppNavComponent } from './components/app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { DataTableComponent } from './components/data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     HeaderComponent,
     FoodContainerComponent,
     NavigatorComponent,
-    AppNavComponent
+    AppNavComponent,
+    DataTableComponent
   ],
   imports: [
     NgxsModule.forRoot([ShoppingListState]),
@@ -57,7 +60,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatListModule,
     LayoutModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    CdkTableModule
   ],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]

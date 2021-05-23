@@ -1,45 +1,66 @@
-import { mergeMap } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/shopping-list.models';
-import { Select, Store, ofActionSuccessful } from '@ngxs/store';
-import { ShoppingList } from 'src/app/store/shopping-list.actions';
-import { ShoppingListState } from 'src/app/store/shopping-list.state';
-import { Observable, of } from 'rxjs';
+import { DataSource } from '@angular/cdk/collections';
+import { Component } from '@angular/core';
+import { ShoppingList, ShoppingListStatus, ShoppingListTableHeader } from 'src/app/models/shopping-list.models';
+import { TableDataSource } from 'src/app/util/util';
 
 @Component({
   selector: 'app-shopping-list-page',
   templateUrl: './shopping-list-page.component.html',
   styleUrls: ['./shopping-list-page.component.scss']
 })
-export class ShoppingListPageComponent implements OnInit {
+export class ShoppingListPageComponent {
 
-  @Select(ShoppingListState.products)
-  products$?: Observable<Product[]>;
+  shoppingLists: ShoppingList[];
 
-  constructor(private store: Store) {
-  }
+  dataSource: DataSource<ShoppingList>;
 
-  ngOnInit(): void {
-    this.store.dispatch(new ShoppingList.Get());
-  }
+  columns: string[] = ['id', 'name', 'creation', 'status'];
+  headers: ShoppingListTableHeader = {
+    id: 'ID',
+    name: 'Name',
+    creation: 'Creation',
+    status: 'Status'
+  };
 
-  onAddItem(product: Product): void {
-    this.store.dispatch(new ShoppingList.AddProduct(product)).subscribe(() => {
-      this.store.dispatch(new ShoppingList.Get());
-    });
-  }
-
-  onFinishShopping(shoppingList: Product[]): void {
-    if (shoppingList.length > 0) {
-      this.store.dispatch(new ShoppingList.FinishShopping(shoppingList)).subscribe(() => {
-        this.store.dispatch(new ShoppingList.Get());
-      });
-    }
-  }
-
-  onRemoveProduct(productId: string): void {
-    this.store.dispatch(new ShoppingList.RemoveProduct(productId)).subscribe(() => {
-      this.store.dispatch(new ShoppingList.Get());
-    });
+  constructor() {
+    this.shoppingLists = [
+      {
+        id: '1',
+        name: 'Bolognai',
+        creation: new Date('2021-04-20'),
+        status: ShoppingListStatus.Active
+      },
+      {
+        id: '2',
+        name: 'Moody Waters',
+        creation: new Date('2021-04-20'),
+        status: ShoppingListStatus.Active
+      },
+      {
+        id: '3',
+        name: '420',
+        creation: new Date('2021-04-20'),
+        status: ShoppingListStatus.Active
+      },
+      {
+        id: '4',
+        name: 'Kenyér',
+        creation: new Date('2021-04-20'),
+        status: ShoppingListStatus.Active
+      },
+      {
+        id: '5',
+        name: 'Telkezés',
+        creation: new Date('2021-04-20'),
+        status: ShoppingListStatus.Active
+      },
+      {
+        id: '6',
+        name: 'Túra',
+        creation: new Date('2021-04-20'),
+        status: ShoppingListStatus.Active
+      }
+    ];
+    this.dataSource = new TableDataSource(this.shoppingLists);
   }
 }
